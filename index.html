@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小寶貝溫馨收支小舖 💜</title>
+    <!-- 引入Google字型 -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --lavender-bg: #f5f2fa;
+            --lavender-card: #ffffff;
+            --lavender-primary: #9b7ede;
+            --lavender-hover: #8362d6;
+            --lavender-border: #d4c5f9;
+            --text-color: #5a526a;
+            --shadow: 0 10px 25px rgba(155, 126, 222, 0.1);
+        }
+
+        body {
+            background-color: var(--lavender-bg);
+            font-family: 'Noto Sans TC', 'Quicksand', sans-serif;
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--lavender-card);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            border: 2px dashed var(--lavender-border);
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            color: #725ac1;
+            margin-bottom: 25px;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            color: #6b5b95;
+        }
+
+        input[type="date"],
+        input[type="number"],
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--lavender-border);
+            border-radius: 14px;
+            font-size: 15px;
+            background-color: #faf8ff;
+            color: var(--text-color);
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--lavender-primary);
+            background-color: #fff;
+            box-shadow: 0 0 8px rgba(155, 126, 222, 0.2);
+        }
+
+        .hint {
+            font-size: 12px;
+            color: #a29bfe;
+            margin-top: 5px;
+        }
+
+        button {
+            width: 100%;
+            background-color: var(--lavender-primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            box-shadow: 0 4px 15px rgba(155, 126, 222, 0.4);
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: var(--lavender-hover);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* 成功提示彈窗樣式 */
+        #loading {
+            display: none;
+            text-align: center;
+            color: var(--lavender-primary);
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🌸 小孩收支記帳系統 🌸</h2>
+        <form id="expenseForm">
+            
+            <div class="form-group">
+                <label for="date">📅 日期</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">💰 收支金額</label>
+                <input type="number" id="amount" name="amount" placeholder="收入填正數(如 20000)，支出填負數(如 -940)" required>
+                <div class="hint">💡 收入為正 (+)；支出為負 (-)</div>
+            </div>
+
+            <div class="form-group">
+                <label for="target">🎯 收支對象</label>
+                <select id="target" name="target" required>
+                    <option value="" disabled selected>請選擇對象</option>
+                    <option value="哥哥">哥哥</option>
+                    <option value="妹妹">妹妹</option>
+                    <option value="團集會">團集會</option>
+                    <option value="公用">公用</option>
+                    <option value="飲食基金">飲食基金</option>
+                    <option value="昀芷代墊">昀芷代墊</option>
+                    <option value="俊穎代墊">俊穎代墊</option>
+                    <option value="收紅包">收紅包</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="item">📝 收支項目細項</label>
+                <input type="text" id="item" name="item" placeholder="例如：午餐、買文具、繳費..." required>
+            </div>
+
+            <div class="form-group">
+                <label for="applicant">👤 申請人</label>
+                <select id="applicant" name="applicant" required>
+                    <option value="" disabled selected>請選擇申請人</option>
+                    <option value="昀芷">昀芷</option>
+                    <option value="俊穎">俊穎</option>
+                    <option value="昀芷買東西">昀芷買東西</option>
+                    <option value="俊穎買東西">俊穎買東西</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="note">💬 費用補充說明 (選填)</label>
+                <textarea id="note" name="note" rows="2" placeholder="備註說明..."></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn">✨ 記錄一筆收支 ✨</button>
+            <div id="loading">正在送出並寫入試算表中，請稍候... 💜</div>
+        </form>
+    </div>
+
+    <script>
+        // 自動帶入今天的日期
+        document.getElementById('date').valueAsDate = new Date();
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz0EJb4uWfMsPsijcv3PeJrPeVFYXiHtOS4Nu7MW4X8BtLDsj9Y-vyBEp1I2VbfYB8/exec'; // <-- 請將此處換成您的 Google 網頁應用程式網址
+
+        const form = document.getElementById('expenseForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const loading = document.getElementById('loading');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            submitBtn.style.display = 'none';
+            loading.style.display = 'block';
+
+            let requestBody = new FormData(form);
+
+            fetch(scriptURL, { method: 'POST', body: requestBody })
+                .then(response => {
+                    alert('🎉 記帳成功！資料已同步至 Google 試算表！');
+                    form.reset();
+                    document.getElementById('date').valueAsDate = new Date(); // 重新帶入今天日期
+                    submitBtn.style.display = 'block';
+                    loading.style.display = 'none';
+                })
+                .catch(error => {
+                    alert('⚠️ 發生錯誤，請稍後再試：' + error.message);
+                    submitBtn.style.display = 'block';
+                    loading.style.display = 'none';
+                });
+        });
+    </script>
+</body>
+</html>
